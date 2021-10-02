@@ -1,0 +1,59 @@
+package statepatterndemo;
+class Context
+{
+    private State state;
+    public Context(){
+      state=null;  
+    }
+    public void setState(State state){
+        this.state=state;
+    }
+     public State getState(){
+        return this.state;
+    }
+}
+interface State{
+    public void doAction(Context context);
+}
+
+class StartState implements State{
+
+    @Override
+    public void doAction(Context context) {
+       System.out.println("Window is in start mode ");
+       context.setState(this);
+    }
+    public String toString(){
+        return "Start State";
+    }
+}
+
+class StopState implements State{
+
+    @Override
+    public void doAction(Context context) {
+       System.out.println("Window is in stop mode ");
+       context.setState(this);
+    }
+    public String toString(){
+        return "Pause";
+    }
+}
+
+public class StatePatternDemo {
+
+    
+    public static void main(String[] args) {
+        
+        
+        Context context=new Context();
+        StartState startstate=new StartState();
+        startstate.doAction(context);
+        System.out.println(context.getState().toString());
+        StopState stopstate=new StopState();
+        stopstate.doAction(context);
+        System.out.println(context.getState().toString());
+        
+    }
+    
+}
